@@ -33,7 +33,9 @@ public class ClientApplication extends Application {
         primaryStage.setScene(scene);
         MainController mainController = fxmlLoader.getController();
 
-
+        String css = this.getClass().getResource("/css/style.css").toExternalForm();
+        primaryStage.getScene().getStylesheets().add(css);
+        primaryStage.show();
         primaryStage.show();
     }
 }

@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -15,8 +14,6 @@ import ru.kpfu.itis.protocol.Message;
 import ru.kpfu.itis.protocol.MessageType;
 import ru.kpfu.itis.sockets.ClientSocket;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,10 +21,15 @@ public class MainController implements Initializable {
 
     private ClientSocket clientSocket;
 
-    private static final String PLAYER_ICON = "src/main/resources/img/img.png";
 
     @FXML
     private Button sendMessageButton;
+
+    @FXML
+    public ScrollPane messagesArea;
+
+    @FXML
+    public VBox messageControl;
 
     @FXML
     private Canvas canvas;
@@ -77,16 +79,8 @@ public class MainController implements Initializable {
                 g.fillRect(x,y,size,size);
             }
         });
-        try {
-            Image playerIcon = new Image(new FileInputStream(PLAYER_ICON));
 
-            player.setImage(playerIcon);
-            player.setRotate(180);
 
-            enemy.setImage(playerIcon);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         Platform.runLater( () -> gameArea.requestFocus() );
         connectButton.setOnMouseClicked(event -> {
             String nickname = name.getText();
